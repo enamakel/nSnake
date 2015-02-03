@@ -250,12 +250,18 @@ void GameStateMainMenu::update()
 	}
 	else
 	{
-		// We're still at the Main Menu
-		this->menu->handleInput();
+		// No need for that -SE
+		// // We're still at the Main Menu
+		// this->menu->handleInput();
 
-		if (this->menu->willQuit())
+		// We don't have time to wait for user input
+		if (true)
+		// if (this->menu->willQuit())
+
 		{
-			switch(this->menu->currentID())
+			// and that's because I enforce the 'Arcade mode' on you all!! -SE
+			switch(ARCADE)
+			// switch(this->menu->currentID())
 			{
 			case ARCADE:
 				// Starting game on the default level
