@@ -1,3 +1,7 @@
+Steven Enamakel <me@steven.pw>
+* Modified some parts to work nicely with the login page.
+* Maintainer for the modified version of nSnake
+
 Alexandre Dantas <eu@alexdantas.net>
 * Main upstream and current maintainer.
 
@@ -16,4 +20,3 @@ Lingyu Zhu <lynuszhu@gmail.com>
 
 Dylan <dook@stardust.red>
 * Fixed linker errors.
-
