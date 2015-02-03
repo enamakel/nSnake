@@ -21,12 +21,12 @@ LayoutGame::~LayoutGame()
 void LayoutGame::windowsInit()
 {
 	Layout::windowsInit();
-	this->main->setTitle("nsnake " VERSION);
+	// this->main->setTitle("nsnake " VERSION);
 
-	if (this->game->currentScore->level.empty())
-		this->main->setTitle("Arcade Mode", Window::TOP_RIGHT);
-	else
-		this->main->setTitle("Level " + this->game->board->getMetadata("name"), Window::TOP_RIGHT);
+	// if (this->game->currentScore->level.empty())
+	// 	this->main->setTitle("Arcade Mode", Window::TOP_RIGHT);
+	// else
+	// 	this->main->setTitle("Level " + this->game->board->getMetadata("name"), Window::TOP_RIGHT);
 
 	// Leftmost window
 	this->gamewin = new Window(this->main,
@@ -39,7 +39,7 @@ void LayoutGame::windowsInit()
 	                        WINDOW_FILL, this->main->getH() - 2,
 	                        WINDOW_FILL, 1);
 
-	this->info->borders(Window::BORDER_NONE);
+	// this->info->borders(Window::BORDER_NONE);
 
 	// Le pause window.
 	this->pause = new Window(this->main,
@@ -48,7 +48,7 @@ void LayoutGame::windowsInit()
 	                         this->main->getW() / 2,
 	                         7);
 
-	this->pause->setTitle("Paused");
+	// this->pause->setTitle("Paused");
 
 	// Le help window.
 	this->help = new Window(this->main,
@@ -119,32 +119,33 @@ void LayoutGame::draw(Menu* menu)
 	// Statistics
 	// A mess of direct Ncurses calls - fix this later
 	this->info->clear();
-	this->info->print("a", 0, 0);
+	// this->info->print("a", 0, 0);
 
-	ColorPair hilite = EngineGlobals::Theme::hilite_text;
+	// ColorPair hilite = EngineGlobals::Theme::hilite_text;
 
-	this->info->print("Hi-Score", 0, 0, hilite);
-	this->info->print("Score",    this->info->getW()/3, 0, hilite);
-	this->info->print("Speed",    this->info->getW()/3 * 2, 0, hilite);
+	// Get rid of the bottom scoreboard -SE
+	// this->info->print("Hi-Score", 0, 0, hilite);
+	// this->info->print("Score",    this->info->getW()/3, 0, hilite);
+	// this->info->print("Speed",    this->info->getW()/3 * 2, 0, hilite);
 
-	if (this->game->scores->highScore)
-	{
-		std::string points = Utils::String::toString(this->game->scores->highScore->points);
+	// if (this->game->scores->highScore)
+	// {
+	// 	std::string points = Utils::String::toString(this->game->scores->highScore->points);
 
-		this->info->print(points, 9, 0, EngineGlobals::Theme::text);
-	}
+	// 	this->info->print(points, 9, 0, EngineGlobals::Theme::text);
+	// }
 
-	std::string points = Utils::String::toString(this->game->currentScore->points);
-	this->info->print(points,
-	                  this->info->getW()/3 + 6,
-	                  0,
-	                  EngineGlobals::Theme::text);
+	// std::string points = Utils::String::toString(this->game->currentScore->points);
+	// this->info->print(points,
+	//                   this->info->getW()/3 + 6,
+	//                   0,
+	//                   EngineGlobals::Theme::text);
 
-	std::string speed = Utils::String::toString(this->game->currentScore->speed);
-	this->info->print(speed,
-	                  this->info->getW()/3 * 2 + 6,
-	                  0,
-	                  EngineGlobals::Theme::text);
+	// std::string speed = Utils::String::toString(this->game->currentScore->speed);
+	// this->info->print(speed,
+	//                   this->info->getW()/3 * 2 + 6,
+	//                   0,
+	//                   EngineGlobals::Theme::text);
 
 	// 	// Timer - how much time has passed since game start
 	// 	this->rightmost->print("Timer", 2, 10, hilite);
@@ -181,7 +182,7 @@ void LayoutGame::draw(Menu* menu)
 	this->game->fruits->draw(boardwin);
 
 	this->gamewin->refresh();
-	this->info->refresh();
+	// this->info->refresh();
 	this->main->refresh();
 
 	// NCURSES NEEDS THIS
