@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 		// Settings
 		EngineGlobals::init();
 		Globals::init();
-		Globals::loadFile();
+		// Globals::loadFile();
 		Arguments::parse(argc, argv);
 
 		// Misc Initializations
@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 		states.run(new GameStateMainMenu());
 
 		// Finishing things
-		Globals::saveFile();
+		// Globals::saveFile();
 		Ncurses::exit();
 		Globals::warnErrors();
 	}
