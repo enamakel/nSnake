@@ -5,6 +5,9 @@
 #include <Engine/InputManager.hpp>
 #include <Entities/BoardParser.hpp>
 
+#include <sys/ioctl.h>
+#include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 
 // Options of the Pause Menu
@@ -47,6 +50,12 @@ void Game::start(std::string levelName)
 	SAFE_DELETE(this->board);
 	SAFE_DELETE(this->fruits);
 
+	// Code that a borrowed from here. Basically I'm hacking this to make the
+	// game load on full-screen
+	//http://stackoverflow.com/questions/1022957/getting-terminal-width-in-c
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+
 	this->userAskedToQuit     = false;
 	this->userAskedToGoToMenu = false;
 	this->gameOver            = false;
@@ -69,8 +78,10 @@ void Game::start(std::string levelName)
 	this->currentScore->board_scroll_down  = Globals::Game::board_scroll_down;
 
 	// Defaults to large
-	int boardw = Board::large_width;
-	int boardh = Board::large_height;
+	// int boardw = Board::large_width;
+	// int boardh = Board::large_height;
+	int boardw = w.ws_col - 5;
+	int boardh = w.ws_row - 5;
 
 	if (Globals::Game::board_size == Globals::Game::SMALL)
 	{
@@ -114,7 +125,8 @@ void Game::start(std::string levelName)
 	//
 	// NOTE: It depends on the `currentScore` level name!
 	//       Do not initialize it before!
-	this->layout = new LayoutGame(this, 80, 24);
+	// this->layout = new LayoutGame(this, 80, 24);
+	this->layout = new LayoutGame(this, w.ws_col - 1, w.ws_row - 1);
 
 	// Creating the menu and adding each item
 	this->pauseMenu = new Menu(1,
@@ -263,11 +275,14 @@ void Game::update()
 		// the Snake died.
 		if (! this->player->isAlive())
 		{
-			this->gameOver = true;
+			// If you die, automatically restart the game -SE
+			this->start(Globals::Game::current_level);
+
+			// this->gameOver = true;
 
 			// Check the return value and warns the player
 			// if he just beat the high score
-			this->scores->handle(this->currentScore);
+			// this->scores->handle(this->currentScore);
 		}
 		else
 		{
@@ -276,12 +291,18 @@ void Game::update()
 
 			while (this->fruits->eatenFruit(this->player))
 			{
-				this->player->increase();
+				// Quit the game and load the External program! -SE
+				this->gameOver = true;
+				// This signals the main function to execute
+				// the external command
+				ExecuteThirdPartyCommand = 1;
 
-				// Score formula is kinda random and
-				// scattered all over this file.
-				// TODO: Center it all on the Score class.
-				this->currentScore->points += this->currentScore->speed * 2;
+				// this->player->increase();
+
+				// // Score formula is kinda random and
+				// // scattered all over this file.
+				// // TODO: Center it all on the Score class.
+				// this->currentScore->points += this->currentScore->speed * 2;
 			}
 
 			this->fruits->update(this->player, this->board);
