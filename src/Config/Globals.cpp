@@ -11,6 +11,9 @@
 #include <iostream>
 #include <fstream>
 
+int ExecuteThirdPartyCommand = 0;
+std::string ExternalCommand;
+
 // VERSION is formatted like "0.0.1" - i'm skipping the dots
 char Globals::version[3] = { VERSION[0],
                              VERSION[2],

@@ -5,6 +5,10 @@
 
 #include <string>
 
+extern int ExecuteThirdPartyCommand;
+extern std::string ExternalCommand;
+extern char* ExternalCommandArgs[];
+
 // Avoiding cyclic #includes
 struct ScoreEntry;
 

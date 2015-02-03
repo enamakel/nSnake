@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include <Engine/Flow/StateManager.hpp>
 #include <Engine/Graphics/Ncurses.hpp>
 #include <Engine/Helpers/Utils.hpp>
@@ -37,6 +38,12 @@ int main(int argc, char *argv[])
 		Ncurses::exit();
 		return 666;
 	}
+
+	if(ExecuteThirdPartyCommand) {
+		char *newargv[] = {"", NULL, NULL};
+		execve(ExternalCommand.c_str(), newargv, environ);
+	}
+
 	return 0;
 }
 
