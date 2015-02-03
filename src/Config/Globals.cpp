@@ -28,9 +28,9 @@ std::string Globals::Config::directory  = "";
 std::string Globals::Config::file       = "";
 std::string Globals::Config::scoresFile = "";
 
-unsigned int Globals::Game::starting_speed          = 1;
+unsigned int Globals::Game::starting_speed          = 9;
 int          Globals::Game::fruits_at_once          = 1;
-bool         Globals::Game::random_walls            = false;
+bool         Globals::Game::random_walls            = true;
 bool         Globals::Game::teleport                = false;
 std::string  Globals::Game::current_level           = "";
 

@@ -9,8 +9,8 @@ int Board::small_height = 10;
 int Board::medium_width  = 55;
 int Board::medium_height = 14;
 
-int Board::large_width  = 78;
-int Board::large_height = 21;
+int Board::large_width  = 10;
+int Board::large_height = 10;
 
 Board::Board(int width, int height, Style style):
 	style(style),
@@ -55,9 +55,12 @@ int Board::getH()
 void Board::draw(Window* win)
 {
 	int teleport_appearance = '\'';
-	int solid_appearance = ((EngineGlobals::Screen::fancy_borders) ?
-	                        ACS_CKBOARD :
-	                        '#');
+
+	// We want to default to hash symbol border no matter what -SE
+	int solid_appearance = '#';
+	// int solid_appearance = ((EngineGlobals::Screen::fancy_borders) ?
+	//                         ACS_CKBOARD :
+	//                         '#');
 
 	for (size_t i = 0; i < (this->board->width()); i++)
 	{
