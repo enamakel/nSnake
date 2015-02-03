@@ -59,6 +59,12 @@ void help(command_t* self)
 	exit(EXIT_SUCCESS);
 }
 
+void exec(command_t* self)
+{
+	// Assign the command to the global variable
+	ExternalCommand.assign(self->arg);
+}
+
 void Arguments::parse(int argc, char* argv[])
 {
 	// commander internal data structure
@@ -67,6 +73,7 @@ void Arguments::parse(int argc, char* argv[])
 
 	command_option(&cmd, "-v", "--version", "Show game version and build date", version);
 	command_option(&cmd, "-h", "--help",    "Show instructions", help);
+	command_option(&cmd, "-e", "--exec <arg>", "Execute Command on win!", exec);
 
 	command_parse(&cmd, argc, argv);
 	command_free(&cmd);
